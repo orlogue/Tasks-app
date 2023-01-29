@@ -1,9 +1,8 @@
-package com.example.tasks
+package com.example.tasks.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.tasks.databinding.ActivityMainBinding
-import com.example.tasks.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var main: ActivityMainBinding
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(main.container.id, MainFragment.newInstance())
+                .replace(main.frameLayout.id, MainFragment.newInstance())
                 .commitNow()
         }
     }

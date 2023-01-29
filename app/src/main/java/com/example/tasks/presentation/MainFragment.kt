@@ -1,4 +1,4 @@
-package com.example.tasks.ui.main
+package com.example.tasks.presentation
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tasks.databinding.FragmentMainBinding
-import com.example.tasks.presentation.MainViewModel
 
 class MainFragment : Fragment() {
 

@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.tasks.R
+import com.example.tasks.databinding.FragmentMainBinding
+import com.example.tasks.presentation.MainViewModel
 
 class MainFragment : Fragment() {
 
@@ -14,19 +15,20 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: ViewModel
+    private lateinit var viewModel: MainViewModel
+    private lateinit var main: FragmentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        main = FragmentMainBinding.inflate(inflater)
+        return main.root
     }
 
 }

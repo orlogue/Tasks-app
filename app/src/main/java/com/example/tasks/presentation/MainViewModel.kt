@@ -1,4 +1,4 @@
-package com.example.tasks.ui.main
+package com.example.tasks.presentation
 
 import androidx.lifecycle.ViewModel
 

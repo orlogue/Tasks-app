@@ -1,6 +1,7 @@
 package com.example.tasks.data
 
 data class Note(
+    var listId: Int,
     var title: String,
     var description: String,
     val date: String,

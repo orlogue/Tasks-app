@@ -13,6 +13,6 @@
         <!-- Customize your theme here. -->
         <item name="android:colorPrimaryDark">@color/material_dynamic_neutral40</item>
         <item name="android:textColorPrimary">@color/black_600</item>
-        <item name="android:textColor">@color/grayText</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
 </resources>

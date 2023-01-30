@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Tasks</string>
+    <string name="default_list">My tasks</string>
+    <string name="new_list">+ New list</string>
+
+    <string name="back">Back</string>
+    <string name="create_new_list">Create new list</string>
+    <string name="done">Done</string>
+    <string name="add_note">Add note</string>
+    <string name="choose_list">Add note</string>
+    <string name="options">Options</string>
+
+    <string name="enter_list_title">Enter list title</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

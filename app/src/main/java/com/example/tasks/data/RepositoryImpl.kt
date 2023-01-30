@@ -2,40 +2,50 @@ package com.example.tasks.data
 
 import com.example.tasks.domain.Repository
 
-class RepositoryImplementation : Repository {
+class RepositoryImpl : Repository {
+    private val lists: MutableList<NotesList> = mutableListOf()
+    private val notes: MutableList<Note> = mutableListOf()
+
+
     override fun createList(list: NotesList) {
-        TODO("Not yet implemented")
+        lists.add(list)
     }
 
     override fun renameList(list: NotesList) {
-        TODO("Not yet implemented")
+        lists.find { it.id == list.id }?.name = list.name
     }
 
     override fun deleteList(listId: Int) {
-        TODO("Not yet implemented")
+        lists.removeIf { it.id == listId }
     }
 
     override fun getLists(): List<NotesList> {
-        TODO("Not yet implemented")
+        return lists.toList()
     }
-    
-    override fun getNote(id: Int): Note {
-        TODO("Not yet implemented")
+
+    override fun getNote(id: Int): Note? {
+        return notes.find { it.id == id }
     }
 
     override fun addNote(note: Note) {
-        TODO("Not yet implemented")
+        notes.add(note)
     }
 
-    override fun editNote(note: Note): Note {
-        TODO("Not yet implemented")
+    override fun editNote(note: Note) {
+        notes.find { it == note }?.apply {
+            title = note.title
+            description = note.description
+            listId = note.listId
+            isFavorite = note.isFavorite
+            isCompleted = note.isCompleted
+        }
     }
 
     override fun deleteNote(id: Int) {
-        TODO("Not yet implemented")
+        notes.removeIf { it.id == id }
     }
 
     override fun getNotesList(listId: Int): List<Note> {
-        TODO("Not yet implemented")
+        return notes.filter { it.listId == listId}
     }
 }

@@ -1,12 +1,20 @@
 package com.example.tasks.data.db.dao
 
 import androidx.room.*
+import com.example.tasks.data.db.models.NoteDbEntity
 import com.example.tasks.data.db.models.NotesListDbEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotesDao {
+    @Query("INSERT INTO lists VALUES (1, 'Starred'), (2, 'My Tasks')")
+    suspend fun initDatabase()
+
+    @Query("DELETE FROM lists")
+    suspend fun deleteLists()
+
     @Query("SELECT * FROM lists")
-    suspend fun getLists(): List<NotesListDbEntity>
+    fun getLists(): Flow<List<NotesListDbEntity>>
 
     @Insert
     suspend fun createList(notesListDbEntity: NotesListDbEntity)
@@ -16,4 +24,20 @@ interface NotesDao {
 
     @Delete
     suspend fun deleteList(notesListDbEntity: NotesListDbEntity)
+
+
+    @Query("SELECT * FROM notes")
+    fun getNotes(): Flow<List<NoteDbEntity>>
+
+    @Query("SELECT * FROM notes WHERE id == :id")
+    suspend fun getNoteById(id: Int): NoteDbEntity?
+
+    @Insert
+    suspend fun createNote(noteDbEntity: NoteDbEntity)
+
+    @Update
+    suspend fun updateNote(noteDbEntity: NoteDbEntity)
+
+    @Delete
+    suspend fun deleteNote(noteDbEntity: NoteDbEntity)
 }

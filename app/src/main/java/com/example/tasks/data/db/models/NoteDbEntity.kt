@@ -45,5 +45,15 @@ data class NoteDbEntity(
             isFavorite = note.isFavorite,
             isCompleted = note.isCompleted
         )
+
+        fun toUpdateNoteDbEntity(note: Note) : NoteDbEntity = NoteDbEntity(
+            id = note.id,
+            listId = note.listId,
+            title = note.title,
+            description = note.description,
+            date = note.date,
+            isFavorite = note.isFavorite,
+            isCompleted = note.isCompleted
+        )
     }
 }

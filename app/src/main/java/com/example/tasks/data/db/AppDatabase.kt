@@ -14,5 +14,5 @@ import com.example.tasks.data.db.models.NotesListDbEntity
     ]
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun getNotesListDao(): NotesDao
+    abstract fun getNotesDao(): NotesDao
 }

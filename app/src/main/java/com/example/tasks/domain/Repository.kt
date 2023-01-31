@@ -2,16 +2,18 @@ package com.example.tasks.domain
 
 import com.example.tasks.data.Note
 import com.example.tasks.data.NotesList
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
-    fun createList(list: NotesList)
-    fun renameList(list: NotesList)
-    fun deleteList(listId: Int)
-    fun getLists(): List<NotesList>
+    suspend fun initDatabase()
+    suspend fun createList(list: NotesList)
+    suspend fun renameList(list: NotesList)
+    suspend fun deleteList(list: NotesList)
+    fun getLists(): Flow<List<NotesList>>
 
-    fun getNote(id: Int): Note?
-    fun addNote(note: Note)
-    fun editNote(note: Note)
-    fun deleteNote(id: Int)
-    fun getNotesList(listId: Int): List<Note>
+    suspend fun getNote(id: Int): Note?
+    suspend fun addNote(note: Note)
+    suspend fun editNote(note: Note)
+    suspend fun deleteNote(note: Note)
+    fun getNotesList(): Flow<List<Note>>
 }

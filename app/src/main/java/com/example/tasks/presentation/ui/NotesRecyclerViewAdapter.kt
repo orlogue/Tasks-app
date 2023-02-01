@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasks.R
 import com.example.tasks.data.Note
@@ -69,6 +71,19 @@ class NotesRecyclerViewAdapter(
             viewModel.editNote(item)
         }
 
+        holder.noteBox.setOnClickListener {
+            val activity = it.context as? AppCompatActivity
+            activity?.supportFragmentManager!!
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(
+                    R.id.container,
+                    SingleNoteFragment.newInstance(item),
+                    "singleNoteFragment"
+                )
+                .commit()
+        }
+
         holder.titleView.text = item.title
         if (item.description.isNotEmpty()) {
             holder.descriptionView.text = item.description
@@ -82,9 +97,11 @@ class NotesRecyclerViewAdapter(
         val idView: TextView = binding.itemNumber
         val titleView: TextView = binding.noteTitle
         val descriptionView: TextView = binding.noteDescription
-//        val check: RadioButton = binding.check
+
+        //        val check: RadioButton = binding.check
         val checkBox: CheckBox = binding.checkBox
         val makeFavorite: ImageButton = binding.makeFavorite2
+        val noteBox: ConstraintLayout = binding.noteBox
 
 
         override fun toString(): String {

@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tasks.data.NotesList
 
 class PagerAdapter(
-    private val parentFragment: FragmentActivity,
+    parentFragment: FragmentActivity,
     private val notesList: List<NotesList>
 ) : FragmentStateAdapter(parentFragment) {
 

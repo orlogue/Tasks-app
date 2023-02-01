@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -40,8 +42,9 @@ class NewNoteFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setLayout(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        dialog?.window?.setGravity(Gravity.BOTTOM)
     }
 
     override fun onCreateView(
@@ -50,15 +53,16 @@ class NewNoteFragment : DialogFragment() {
     ): View {
         binding = FragmentNewNoteBinding.inflate(inflater)
         dialog?.setCanceledOnTouchOutside(true)
+        makeEditFocused()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        makeEditFocused()
         addDescriptionButtonListener()
         makeFavoriteButtonListener()
         saveButtonListener()
+
         binding.apply {
             titleInput.doAfterTextChanged {
                 if (titleInput.text.isNotEmpty()) {
@@ -88,9 +92,9 @@ class NewNoteFragment : DialogFragment() {
         binding.apply {
             makeFavorite.setOnClickListener {
                 if (!isFavorite) {
-                    makeFavorite.setImageResource(R.drawable.baseline_star_24)
+                    makeFavorite.setImageResource(R.drawable.baseline_star_36)
                 } else {
-                    makeFavorite.setImageResource(R.drawable.baseline_star_border_24)
+                    makeFavorite.setImageResource(R.drawable.baseline_star_border_36)
                 }
                 isFavorite = !isFavorite
             }
@@ -119,9 +123,7 @@ class NewNoteFragment : DialogFragment() {
 
     private fun makeEditFocused() {
         binding.titleInput.requestFocus()
-        val inputManager: InputMethodManager =
-            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.showSoftInput(binding.titleInput, InputMethodManager.SHOW_IMPLICIT)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     companion object {

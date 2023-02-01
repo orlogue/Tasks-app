@@ -21,5 +21,10 @@ data class NotesListDbEntity(
             id = 0,
             name = notesList.name
         )
+
+        fun toUpdateNotesListDbEntity(notesList: NotesList) : NotesListDbEntity = NotesListDbEntity(
+            id = notesList.id,
+            name = notesList.name
+        )
     }
 }

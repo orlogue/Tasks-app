@@ -2,6 +2,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    tools:context=".presentation.ui.OptionsFragment" />
+    tools:context=".presentation.ui.OptionsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/rounded_edittext"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/rename_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:text="@string/rename_list"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray" />
+
+        <Button
+            android:id="@+id/delete_list_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:text="@string/delete_list"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray" />
+
+        <Button
+            android:id="@+id/delete_completed_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:text="@string/delete_completed_tasks"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray" />
+    </LinearLayout>
+</FrameLayout>

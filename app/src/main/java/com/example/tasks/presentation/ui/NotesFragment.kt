@@ -37,19 +37,18 @@ class NotesFragment : Fragment() {
         binding.list.layoutManager = LinearLayoutManager(context)
 
         viewModel.notes.observe(viewLifecycleOwner) {
-            binding.apply {
-                if (listId == 1) {
-                    list.adapter = NotesRecyclerViewAdapter(
-                        it
-                        .filter { it.isFavorite }
-                        .sortedBy { it.isCompleted },
-                        viewModel)
-                } else {
-                    list.adapter = NotesRecyclerViewAdapter(it
-                        .filter { it.listId == listId }
-                        .sortedBy { it.isCompleted },
-                        viewModel)
-                }
+            if (listId == 1) {
+                binding.list.adapter = NotesRecyclerViewAdapter(it
+                    .filter { it.isFavorite }
+                    .sortedBy { it.isCompleted },
+                    viewModel
+                )
+            } else {
+                binding.list.adapter = NotesRecyclerViewAdapter(it
+                    .filter { it.listId == listId }
+                    .sortedBy { it.isCompleted },
+                    viewModel
+                )
             }
         }
         return binding.root

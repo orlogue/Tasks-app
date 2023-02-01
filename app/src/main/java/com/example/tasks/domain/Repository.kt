@@ -8,7 +8,7 @@ interface Repository {
     suspend fun initDatabase()
     suspend fun createList(list: NotesList)
     suspend fun renameList(list: NotesList)
-    suspend fun deleteList(list: NotesList)
+    suspend fun deleteList(listId: Int)
     fun getLists(): Flow<List<NotesList>>
 
     suspend fun getNote(id: Int): Note?

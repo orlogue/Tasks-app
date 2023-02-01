@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         MainRepository.init(applicationContext)
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel.getLists()
-//        viewModel.initDatabase()
         setContentView(binding.root)
 
         if (savedInstanceState == null) {

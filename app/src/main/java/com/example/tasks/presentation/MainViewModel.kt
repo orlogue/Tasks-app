@@ -20,14 +20,8 @@ class MainViewModel : ViewModel() {
     private val createNoteUseCase = CreateNoteUseCase(repository)
     private val editNoteUseCase = EditNoteUseCase(repository)
     private val getNotesUseCase = GetNotesUseCase(repository)
-
-
-
-    fun initDatabase() {
-        viewModelScope.launch {
-            repository.initDatabase()
-        }
-    }
+    private val deleteCompletedNotesUseCase = DeleteCompletedNotesUseCase(repository)
+    private val deleteNoteUseCase =DeleteNoteUseCase(repository)
 
     fun createList(list: NotesList) {
         runBlocking {
@@ -40,17 +34,12 @@ class MainViewModel : ViewModel() {
     }
 
     fun renameList(list: NotesList) {
-        runBlocking {
-            val job = viewModelScope.launch {
-                renameListUseCase.execute(list)
-            }
-            job.join()
-            getLists()
+        viewModelScope.launch(Dispatchers.IO) {
+            renameListUseCase.execute(list)
         }
     }
 
     fun deleteList(listId: Int) {
-        Log.d("ID", listId.toString())
         viewModelScope.launch(Dispatchers.IO) {
             deleteListUseCase.execute(listId)
         }
@@ -65,20 +54,24 @@ class MainViewModel : ViewModel() {
     fun createNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             createNoteUseCase.execute(note)
-            withContext(Dispatchers.Main) {
-                getNotesList()
-            }
         }
     }
 
     fun editNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             editNoteUseCase.execute(note)
-//            delay(100)
-            withContext(Dispatchers.Main) {
-                getNotesList()
-                Log.d("Updated", note.toString())
-            }
+        }
+    }
+
+    fun deleteNote(noteId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteNoteUseCase.execute(noteId)
+        }
+    }
+
+    fun deleteCompletedNotes(listId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteCompletedNotesUseCase.execute(listId)
         }
     }
 

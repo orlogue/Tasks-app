@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.AddNewListFragment">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="78dp"
-        android:theme="?attr/actionBarTheme"
-        android:visibility="gone"
-        app:menu="@menu/add_new_list_menu" />
+    tools:context=".presentation.ui.CreateRenameListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/ripple_effect_gray"
                 android:contentDescription="@string/back"
                 android:paddingStart="16dp"
                 android:paddingTop="12dp"
@@ -62,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="?selectableItemBackground"
                 android:text="@string/done"
                 android:textColor="@color/gray"
+                android:background="@drawable/ripple_effect"
                 android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

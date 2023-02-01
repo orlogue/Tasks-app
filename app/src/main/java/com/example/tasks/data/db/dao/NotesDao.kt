@@ -26,11 +26,8 @@ interface NotesDao {
     suspend fun deleteList(listId: Int)
 
 
-    @Query("SELECT * FROM notes")
+    @Query("SELECT * FROM notes ORDER BY id desc")
     fun getNotes(): Flow<List<NoteDbEntity>>
-
-    @Query("SELECT * FROM notes WHERE id == :id")
-    suspend fun getNoteById(id: Int): NoteDbEntity?
 
     @Insert
     suspend fun createNote(noteDbEntity: NoteDbEntity)
@@ -38,6 +35,9 @@ interface NotesDao {
     @Update
     suspend fun updateNote(noteDbEntity: NoteDbEntity)
 
-    @Delete
-    suspend fun deleteNote(noteDbEntity: NoteDbEntity)
+    @Query("DELETE FROM notes WHERE id == :noteId")
+    suspend fun deleteNote(noteId: Int)
+
+    @Query("DELETE FROM notes WHERE isCompleted == 1 AND list_id == :listId")
+    suspend fun deleteCompletedNotes(listId: Int)
 }

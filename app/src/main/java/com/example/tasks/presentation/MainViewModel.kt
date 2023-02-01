@@ -3,9 +3,7 @@ package com.example.tasks.presentation
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.tasks.data.*
-import com.example.tasks.data.RepositoryImpl
 import com.example.tasks.domain.MainRepository.repository
-import com.example.tasks.domain.Repository
 import com.example.tasks.domain.useCases.*
 import kotlinx.coroutines.*
 
@@ -15,10 +13,15 @@ class MainViewModel : ViewModel() {
 
 
     private val createListUseCase = CreateListUseCase(repository)
+    private val renameListUseCase = RenameListUseCase(repository)
+    private val deleteListUseCase = DeleteListUseCase(repository)
     private val getListUseCase = GetListsUseCase(repository)
-    private val getNotesListUseCase = GetNotesListUseCase(repository)
+
     private val createNoteUseCase = CreateNoteUseCase(repository)
     private val editNoteUseCase = EditNoteUseCase(repository)
+    private val getNotesUseCase = GetNotesUseCase(repository)
+
+
 
     fun initDatabase() {
         viewModelScope.launch {
@@ -36,12 +39,37 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getLists() {
-//        viewModelScope.launch {
-            val list = getListUseCase.execute()
-            lists = list.asLiveData()
-            Log.d("MyLog", lists.value.toString())
+    fun renameList(list: NotesList) {
+        runBlocking {
+            val job = viewModelScope.launch {
+                renameListUseCase.execute(list)
+            }
+            job.join()
+            getLists()
+        }
+    }
+
+    fun deleteList(listId: Int) {
+        Log.d("ID", listId.toString())
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteListUseCase.execute(listId)
+            withContext(Dispatchers.Main) {
+                getLists()
+            }
+        }
+//        runBlocking {
+//            val job = viewModelScope.launch {
+//                deleteListUseCase.execute(listId)
+//            }
+//            job.join()
+//            getLists()
 //        }
+    }
+
+    fun getLists() {
+        val list = getListUseCase.execute()
+        lists = list.asLiveData()
+        Log.d("MyLog", list.asLiveData().value.toString())
     }
 
     fun createNote(note: Note) {
@@ -65,12 +93,9 @@ class MainViewModel : ViewModel() {
     }
 
     fun getNotesList() {
-//        viewModelScope.launch {
-            val list = getNotesListUseCase.execute()
-//            val list2 = list.await()
+        val list = getNotesUseCase.execute()
 
-            notes = list.asLiveData()
-            Log.d("MyLog", notes.value.toString())
-//        }
+        notes = list.asLiveData()
+        Log.d("MyLog", notes.value.toString())
     }
 }

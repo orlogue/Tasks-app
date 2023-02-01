@@ -12,6 +12,7 @@ object MainRepository {
 
     private val database: AppDatabase by lazy {
         Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database.db")
+            .createFromAsset("tasks_db.db")
             .build()
     }
 

@@ -12,15 +12,6 @@ class RepositoryImpl(
     private val notesDao: NotesDao,
     private val ioDispatcher: CoroutineDispatcher
 ) : Repository {
-    override suspend fun initDatabase() {
-        CoroutineScope(ioDispatcher).launch {
-//            notesDao.deleteLists()
-//            withContext(Dispatchers.Main) {
-                notesDao.initDatabase()
-//            }
-        }
-    }
-
     override suspend fun createList(list: NotesList) {
         CoroutineScope(ioDispatcher).launch {
             notesDao.createList(NotesListDbEntity.toNotesListDbEntity(list))
@@ -41,18 +32,8 @@ class RepositoryImpl(
 
     override fun getLists(): Flow<List<NotesList>> {
         val list: Flow<List<NotesList>>
-//        val waitFor = CoroutineScope(ioDispatcher).async {
-            list = notesDao.getLists().map { it.map { it.toNotesList() } }
-//            return@async list
-//        }
+        list = notesDao.getLists().map { it.map { it.toNotesList() } }
         return list
-    }
-
-    override suspend fun getNote(id: Int): Note? {
-        val waitFor = CoroutineScope(ioDispatcher).async {
-            return@async notesDao.getNoteById(id)?.toNote()
-        }
-        return waitFor.await()
     }
 
     override suspend fun addNote(note: Note) {
@@ -67,9 +48,9 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun deleteNote(note: Note) {
+    override suspend fun deleteNote(noteId: Int) {
         CoroutineScope(ioDispatcher).launch {
-            notesDao.deleteNote(NoteDbEntity.toNoteDbEntity(note))
+            notesDao.deleteNote(noteId)
         }
     }
 
@@ -81,10 +62,7 @@ class RepositoryImpl(
 
     override fun getNotesList(): Flow<List<Note>> {
         val list: Flow<List<Note>>
-//        val waitFor = CoroutineScope(ioDispatcher).async {
-            list = notesDao.getNotes().map { it.map { it.toNote() } }
-//            return@async list
-//        }
-        return list
+        list = notesDao.getNotes().map { it.map { it.toNote() } }
+        retqurn list
     }
 }

@@ -15,9 +15,12 @@
     <string name="save">Save</string>
 
     <string name="add_description">Add description</string>
+    <string name="add_datetime">Add date/time</string>
     <string name="make_favorite">Make favorite</string>
 
     <string name="rename_list">Rename list</string>
     <string name="delete_list">Delete list</string>
     <string name="delete_completed_tasks">Delete all completed tasks</string>
+    <string name="mark_completed">Mark completed</string>
+    <string name="mark_uncompleted">Mark uncompleted</string>
 </resources>

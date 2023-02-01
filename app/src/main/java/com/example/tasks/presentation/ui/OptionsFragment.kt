@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.example.tasks.data.NotesList
 import com.example.tasks.databinding.FragmentOptionsBinding
 import com.example.tasks.presentation.MainViewModel
 
@@ -16,6 +17,7 @@ class OptionsFragment : DialogFragment() {
     private lateinit var binding: FragmentOptionsBinding
     private val viewModel: MainViewModel by activityViewModels()
     private var listId = 1
+    private var listName = ""
 
 
     override fun onStart() {
@@ -24,6 +26,7 @@ class OptionsFragment : DialogFragment() {
 
         arguments?.let {
             listId = it.getInt(LIST_ID)
+            listName = it.getString(LIST_NAME).toString()
         }
     }
 
@@ -46,17 +49,27 @@ class OptionsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        deleteButtonListener()
     }
 
+    private fun deleteButtonListener() {
+        binding.deleteListButton.setOnClickListener {
+            viewModel.deleteList(listId)
+            dismissNow()
+        }
+    }
 
     companion object {
         const val LIST_ID = "list-id"
+        const val LIST_NAME = "list-name"
+
 
         @JvmStatic
-        fun newInstance(listId: Int) =
+        fun newInstance(listId: Int, listName: String) =
             NewNoteFragment().apply {
                 arguments = Bundle().apply {
                     putInt(LIST_ID, listId)
+                    putString(LIST_NAME, listName)
                 }
             }
     }

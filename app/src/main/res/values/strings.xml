@@ -16,6 +16,8 @@
 
     <string name="add_description">Add description</string>
     <string name="make_favorite">Make favorite</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="rename_list">Rename list</string>
+    <string name="delete_list">Delete list</string>
+    <string name="delete_completed_tasks">Delete all completed tasks</string>
 </resources>

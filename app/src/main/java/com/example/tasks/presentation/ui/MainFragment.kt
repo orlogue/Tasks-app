@@ -1,24 +1,21 @@
 package com.example.tasks.presentation.ui
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.viewModelScope
 import com.example.tasks.R
 import com.example.tasks.databinding.FragmentMainBinding
 import com.example.tasks.presentation.MainViewModel
-import com.example.tasks.presentation.ui.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
-import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -33,10 +30,10 @@ class MainFragment : Fragment() {
         initializePager()
         addListButtonListener()
         addPlusButtonListener()
+        optionsButtonListener()
 
         return binding.root
     }
-
 
     private fun initializePager() {
         binding.apply {
@@ -90,10 +87,27 @@ class MainFragment : Fragment() {
 
     private fun addPlusButtonListener() {
         binding.plusButton.setOnClickListener {
-            val fragment = NewNoteFragment();
+            val fragment = NewNoteFragment()
             fragment.arguments = Bundle().apply {
-                putInt(NewNoteFragment.LIST_ID, binding.pager.currentItem + 1)
-            };
+                viewModel.lists.value?.get(binding.pager.currentItem)?.let { it ->
+                    putInt(
+                        NewNoteFragment.LIST_ID,
+                        it.id
+                    )
+                }
+            }
+            fragment.show(childFragmentManager, null)
+        }
+    }
+
+    private fun optionsButtonListener() {
+        binding.optionsButton.setOnClickListener {
+            val fragment = OptionsFragment()
+            fragment.arguments = Bundle().apply {
+                putInt(OptionsFragment.LIST_ID,
+                    viewModel.lists.value?.get(binding.pager.currentItem)?.id!!
+                )
+            }
             fragment.show(childFragmentManager, null)
         }
     }

@@ -53,17 +53,7 @@ class MainViewModel : ViewModel() {
         Log.d("ID", listId.toString())
         viewModelScope.launch(Dispatchers.IO) {
             deleteListUseCase.execute(listId)
-            withContext(Dispatchers.Main) {
-                getLists()
-            }
         }
-//        runBlocking {
-//            val job = viewModelScope.launch {
-//                deleteListUseCase.execute(listId)
-//            }
-//            job.join()
-//            getLists()
-//        }
     }
 
     fun getLists() {

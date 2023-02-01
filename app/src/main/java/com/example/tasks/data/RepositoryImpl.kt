@@ -29,7 +29,7 @@ class RepositoryImpl(
 
     override suspend fun renameList(list: NotesList) {
         CoroutineScope(ioDispatcher).launch {
-            notesDao.renameList(NotesListDbEntity.toNotesListDbEntity(list))
+            notesDao.renameList(NotesListDbEntity.toUpdateNotesListDbEntity(list))
         }
     }
 
@@ -70,6 +70,12 @@ class RepositoryImpl(
     override suspend fun deleteNote(note: Note) {
         CoroutineScope(ioDispatcher).launch {
             notesDao.deleteNote(NoteDbEntity.toNoteDbEntity(note))
+        }
+    }
+
+    override suspend fun deleteCompletedNotes(listId: Int) {
+        CoroutineScope(ioDispatcher).launch {
+            notesDao.deleteCompletedNotes(listId)
         }
     }
 

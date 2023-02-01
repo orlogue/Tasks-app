@@ -54,22 +54,6 @@ class NotesFragment : Fragment() {
         }
         return binding.root
     }
-//
-//    private fun attachAdapter() {
-//        viewModel.notes.observe(viewLifecycleOwner) {
-////            if (it.last().listId == listId)
-//            binding.apply {
-////                    list.layoutManager = LinearLayoutManager(context)
-//                list.adapter = NotesRecyclerViewAdapter(it.filter { it.listId == listId })
-//            }
-//        }
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        notes = viewModel.getNotesList(listId)
-//        Log.e("MyLog2", notes.toString())
-//    }
 
     companion object {
         const val LIST_ID = "list-id"

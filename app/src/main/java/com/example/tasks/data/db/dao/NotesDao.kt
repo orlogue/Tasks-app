@@ -22,8 +22,8 @@ interface NotesDao {
     @Update
     suspend fun renameList(notesListDbEntity: NotesListDbEntity)
 
-    @Delete
-    suspend fun deleteList(notesListDbEntity: NotesListDbEntity)
+    @Query("DELETE FROM lists WHERE id == :listId")
+    suspend fun deleteList(listId: Int)
 
 
     @Query("SELECT * FROM notes")

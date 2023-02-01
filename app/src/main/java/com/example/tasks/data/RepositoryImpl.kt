@@ -33,9 +33,9 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun deleteList(list: NotesList) {
+    override suspend fun deleteList(listId: Int) {
         CoroutineScope(ioDispatcher).launch {
-            notesDao.deleteList(NotesListDbEntity.toNotesListDbEntity(list))
+            notesDao.deleteList(listId)
         }
     }
 

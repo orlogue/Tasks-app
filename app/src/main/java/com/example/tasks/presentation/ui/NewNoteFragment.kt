@@ -1,25 +1,26 @@
 package com.example.tasks.presentation.ui
 
-import android.content.Context
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
+import android.util.Log
+import android.view.*
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
+import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentNewNoteBinding
 import com.example.tasks.presentation.MainViewModel
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NewNoteFragment : DialogFragment() {
     private lateinit var binding: FragmentNewNoteBinding
@@ -27,6 +28,7 @@ class NewNoteFragment : DialogFragment() {
     private var listId = 2
     private var showDescription = false
     private var isFavorite = false
+    private var dateTime: OffsetDateTime? = null
 
 
     override fun onStart() {
@@ -60,8 +62,13 @@ class NewNoteFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addDescriptionButtonListener()
+        dateTimeButtonListener()
         makeFavoriteButtonListener()
         saveButtonListener()
+
+        if (listId == 1) {
+            binding.makeFavorite.setImageResource(R.drawable.baseline_star_36)
+        }
 
         binding.apply {
             titleInput.doAfterTextChanged {
@@ -88,6 +95,20 @@ class NewNoteFragment : DialogFragment() {
         }
     }
 
+    private fun dateTimeButtonListener() {
+        binding.addDatetime.setOnClickListener {
+            DateTimePicker.pickDateTime(null, requireContext(), ::handlePickedDateTime)
+        }
+    }
+
+    private fun handlePickedDateTime(pickedDateTime: Calendar) {
+        val date = pickedDateTime.time
+        val zoneOffset = ZoneOffset.ofHours(10)
+        var localDate = date.toInstant().atOffset(ZoneOffset.UTC)
+        localDate = localDate.withOffsetSameInstant(zoneOffset);
+        dateTime = localDate
+    }
+
     private fun makeFavoriteButtonListener() {
         binding.apply {
             makeFavorite.setOnClickListener {
@@ -105,6 +126,7 @@ class NewNoteFragment : DialogFragment() {
         binding.apply {
             saveButton.setOnClickListener {
                 if (listId == 1) {
+                    listId = 2
                     isFavorite = true
                 }
                 viewModel.createNote(
@@ -112,7 +134,7 @@ class NewNoteFragment : DialogFragment() {
                         listId,
                         titleInput.text.toString(),
                         descriptionInput.text.toString(),
-                        date = "",
+                        DateTimeConverter.fromOffsetDateTime(dateTime),
                         isFavorite = isFavorite,
                     )
                 )

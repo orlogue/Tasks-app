@@ -1,5 +1,6 @@
 package com.example.tasks.presentation.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +13,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasks.R
+import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentNoteBinding
 import com.example.tasks.presentation.MainViewModel
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 
 class NotesRecyclerViewAdapter(
@@ -35,6 +40,7 @@ class NotesRecyclerViewAdapter(
         )
     }
 
+    @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.idView.text = item.id.toString()
@@ -75,6 +81,7 @@ class NotesRecyclerViewAdapter(
             val activity = it.context as? AppCompatActivity
             activity?.supportFragmentManager!!
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .replace(
                     R.id.container,
@@ -85,6 +92,17 @@ class NotesRecyclerViewAdapter(
         }
 
         holder.titleView.text = item.title
+        item.date?.let {
+            holder.date.visibility = View.VISIBLE
+            val toOffset = DateTimeConverter.toOffsetDateTime(item.date)
+            if (toOffset != null) {
+                if (toOffset.year > OffsetDateTime.now().year)
+                    holder.date.text = toOffset.format(DateTimeFormatter.ofPattern("d MMM yyyy 'at' HH:mm"))
+                else {
+                    holder.date.text = toOffset.format(DateTimeFormatter.ofPattern("d MMM 'at' HH:mm"))
+                }
+            }
+        }
         if (item.description.isNotEmpty()) {
             holder.descriptionView.text = item.description
             holder.descriptionView.visibility = View.VISIBLE
@@ -102,6 +120,7 @@ class NotesRecyclerViewAdapter(
         val checkBox: CheckBox = binding.checkBox
         val makeFavorite: ImageButton = binding.makeFavorite2
         val noteBox: ConstraintLayout = binding.noteBox
+        val date: TextView = binding.date
 
 
         override fun toString(): String {

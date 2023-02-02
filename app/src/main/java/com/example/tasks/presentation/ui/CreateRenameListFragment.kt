@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
 import com.example.tasks.data.NotesList
@@ -83,7 +85,10 @@ class CreateRenameListFragment : Fragment() {
 
     private fun closeFragment() {
         val manager = activity?.supportFragmentManager!!
-        manager.beginTransaction().remove(this).commit()
+        manager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            .remove(this)
+            .commit()
         manager.popBackStack()
     }
 

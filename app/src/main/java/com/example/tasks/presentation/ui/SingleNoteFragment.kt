@@ -1,18 +1,26 @@
 package com.example.tasks.presentation.ui
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Paint
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginLeft
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
+import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentSingleNoteBinding
 import com.example.tasks.presentation.MainViewModel
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Suppress("DEPRECATION")
 class SingleNoteFragment : Fragment() {
@@ -59,8 +67,18 @@ class SingleNoteFragment : Fragment() {
                 singleNoteTitle.paintFlags = 0
                 markCompletedButton.setText(R.string.mark_completed)
             }
+
+            if (note.date != null) {
+                singleNoteDate.text = formatDate()
+            }
         }
     }
+
+    private fun formatDate(): String {
+        val parsedDate = OffsetDateTime.parse(note.date, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        return parsedDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+    }
+
 
     private fun setupListeners() {
         binding.apply {
@@ -89,6 +107,10 @@ class SingleNoteFragment : Fragment() {
                     singleNoteTitle.paintFlags = 0
                 }
             }
+            singleNoteDate.setOnClickListener {
+//                pickDateTime()
+                DateTimePicker.pickDateTime(note, requireContext(), ::handlePickedDateTime)
+            }
         }
     }
 
@@ -109,10 +131,21 @@ class SingleNoteFragment : Fragment() {
 
     private fun closeFragment() {
         val manager = activity?.supportFragmentManager!!
-        manager.beginTransaction().remove(this).commit()
+        manager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            .remove(this)
+            .commit()
         manager.popBackStack()
     }
 
+    private fun handlePickedDateTime(pickedDateTime: Calendar) {
+        val date = pickedDateTime.time
+        val zoneOffset = ZoneOffset.ofHours(10)
+        var localDate = date.toInstant().atOffset(ZoneOffset.UTC)
+        localDate = localDate.withOffsetSameInstant(zoneOffset);
+        note.date = DateTimeConverter.fromOffsetDateTime(localDate)
+        binding.singleNoteDate.setText(formatDate())
+    }
 
     companion object {
         const val NOTE = "note"

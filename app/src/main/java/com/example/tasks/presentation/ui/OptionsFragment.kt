@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
 import com.example.tasks.databinding.FragmentOptionsBinding
@@ -90,6 +91,7 @@ class OptionsFragment : DialogFragment() {
         binding.renameListButton.setOnClickListener {
             activity?.supportFragmentManager!!
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .replace(
                     (view?.parent as View).id,

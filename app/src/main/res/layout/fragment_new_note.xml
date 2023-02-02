@@ -71,6 +71,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
+                android:id="@+id/add_datetime"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/ripple_effect"
+                android:contentDescription="@string/add_datetime"
+                android:padding="12dp"
+                android:src="@drawable/baseline_calendar_month_24"
+                app:iconTint="@color/blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_description"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
                 android:id="@+id/make_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +93,7 @@
                 android:src="@drawable/baseline_star_border_blue_24"
                 app:iconTint="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/add_description"
+                app:layout_constraintStart_toEndOf="@+id/add_datetime"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button

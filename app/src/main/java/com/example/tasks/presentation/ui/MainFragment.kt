@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.widget.ViewPager2
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentMainBinding
+    private var previousPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +33,6 @@ class MainFragment : Fragment() {
         optionsButtonListener()
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.pager.currentItem = 1
     }
 
     private fun initializePager() {
@@ -52,6 +49,7 @@ class MainFragment : Fragment() {
                             tab.setIcon(R.drawable.star_24)
                         }
                     }.attach()
+                    tabLayout.getTabAt(previousPosition)?.select()
                 }
             }
 
@@ -69,13 +67,22 @@ class MainFragment : Fragment() {
                 }
             })
             tabLayout.setTabRippleColorResource(R.color.blue_animation)
+
+            pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    previousPosition = position
+                }
+            })
         }
     }
 
     private fun addListButtonListener() {
         binding.newListButton.setOnClickListener {
+            viewModel.lists.value?.let { previousPosition = it.size }
             activity?.supportFragmentManager!!
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .replace(
                     (view?.parent as View).id,
@@ -100,6 +107,7 @@ class MainFragment : Fragment() {
 
     private fun optionsButtonListener() {
         binding.optionsButton.setOnClickListener {
+            previousPosition = binding.pager.currentItem
             val fragment = OptionsFragment()
             fragment.arguments = Bundle().apply {
                 viewModel.lists.value?.get(binding.pager.currentItem)?.let { it ->

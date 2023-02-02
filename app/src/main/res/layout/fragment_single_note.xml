@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:ems="10"
-                    android:inputType="text"
+                    android:inputType="textMultiLine|text"
                     android:padding="8dp"
                     android:textColor="@color/black_600"
                     android:textSize="20sp" />
@@ -97,8 +97,9 @@
                     android:drawableTint="@color/gray"
                     android:ems="10"
                     android:hint="@string/add_description"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:padding="8dp"
+                    android:scrollbars="vertical"
                     android:textColor="@color/black_600"
                     android:textSize="16sp" />
 

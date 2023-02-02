@@ -63,6 +63,6 @@ class RepositoryImpl(
     override fun getNotesList(): Flow<List<Note>> {
         val list: Flow<List<Note>>
         list = notesDao.getNotes().map { it.map { it.toNote() } }
-        retqurn list
+        return list
     }
 }

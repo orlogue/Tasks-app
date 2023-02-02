@@ -8,7 +8,7 @@ data class Note(
     var listId: Int,
     var title: String,
     var description: String,
-    val date: String,
+    var date: String? = null,
     var isFavorite : Boolean = false,
     var isCompleted : Boolean = false,
     val id: Int = UNDEFINED_ID

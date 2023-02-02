@@ -1,7 +1,11 @@
 package com.example.tasks.data.db.models
 
 import androidx.room.*
+import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
+import org.jetbrains.annotations.NotNull
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 @Entity(
     tableName = "notes",
@@ -21,7 +25,7 @@ data class NoteDbEntity(
     @ColumnInfo(name = "list_id") var listId: Int,
     var title: String,
     var description: String,
-    val date: String,
+    @field:TypeConverters(DateTimeConverter::class) var date: OffsetDateTime? = null,
     var isFavorite : Boolean = false,
     var isCompleted : Boolean = false,
 ) {
@@ -30,7 +34,7 @@ data class NoteDbEntity(
         listId = listId,
         title = title,
         description = description,
-        date = date,
+        date = date?.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME),
         isFavorite = isFavorite,
         isCompleted = isCompleted
     )
@@ -41,7 +45,9 @@ data class NoteDbEntity(
             listId = note.listId,
             title = note.title,
             description = note.description,
-            date = note.date,
+            date = note.date?.let { OffsetDateTime.parse(
+                note.date, DateTimeFormatter.ISO_OFFSET_DATE_TIME
+            ) },
             isFavorite = note.isFavorite,
             isCompleted = note.isCompleted
         )
@@ -51,7 +57,9 @@ data class NoteDbEntity(
             listId = note.listId,
             title = note.title,
             description = note.description,
-            date = note.date,
+            date = note.date?.let { OffsetDateTime.parse(
+                note.date, DateTimeFormatter.ISO_OFFSET_DATE_TIME
+            ) },
             isFavorite = note.isFavorite,
             isCompleted = note.isCompleted
         )

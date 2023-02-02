@@ -31,9 +31,7 @@ class RepositoryImpl(
     }
 
     override fun getLists(): Flow<List<NotesList>> {
-        val list: Flow<List<NotesList>>
-        list = notesDao.getLists().map { it.map { it.toNotesList() } }
-        return list
+        return notesDao.getLists().map { it.map { it.toNotesList() } }
     }
 
     override suspend fun addNote(note: Note) {
@@ -61,8 +59,6 @@ class RepositoryImpl(
     }
 
     override fun getNotesList(): Flow<List<Note>> {
-        val list: Flow<List<Note>>
-        list = notesDao.getNotes().map { it.map { it.toNote() } }
-        return list
+        return notesDao.getNotes().map { it.map { it.toNote() } }
     }
 }

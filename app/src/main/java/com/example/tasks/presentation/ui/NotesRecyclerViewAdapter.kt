@@ -1,6 +1,7 @@
 package com.example.tasks.presentation.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasks.R
@@ -26,7 +28,8 @@ import java.time.format.DateTimeFormatter
 
 class NotesRecyclerViewAdapter(
     private val values: List<Note>,
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
+    private val context: Context
 ) : RecyclerView.Adapter<NotesRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -100,6 +103,10 @@ class NotesRecyclerViewAdapter(
                     holder.date.text = toOffset.format(DateTimeFormatter.ofPattern("d MMM yyyy 'at' HH:mm"))
                 else {
                     holder.date.text = toOffset.format(DateTimeFormatter.ofPattern("d MMM 'at' HH:mm"))
+                }
+                if (toOffset.isBefore(OffsetDateTime.now())) {
+                    holder.date.setTextColor(ContextCompat.getColor(context, R.color.red))
+                    holder.date.setBackgroundResource(R.drawable.date_shape_red)
                 }
             }
         }

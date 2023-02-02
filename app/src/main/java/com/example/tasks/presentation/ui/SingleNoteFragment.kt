@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginLeft
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -70,13 +71,18 @@ class SingleNoteFragment : Fragment() {
 
             if (note.date != null) {
                 singleNoteDate.text = formatDate()
+                val toOffset = DateTimeConverter.toOffsetDateTime(note.date)!!
+                if (toOffset.isBefore(OffsetDateTime.now())) {
+                    singleNoteDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                    singleNoteDate.setBackgroundResource(R.drawable.date_shape_red)
+                }
             }
         }
     }
 
     private fun formatDate(): String {
         val parsedDate = OffsetDateTime.parse(note.date, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-        return parsedDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+        return parsedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"))
     }
 
 
@@ -108,7 +114,6 @@ class SingleNoteFragment : Fragment() {
                 }
             }
             singleNoteDate.setOnClickListener {
-//                pickDateTime()
                 DateTimePicker.pickDateTime(note, requireContext(), ::handlePickedDateTime)
             }
         }
@@ -144,7 +149,16 @@ class SingleNoteFragment : Fragment() {
         var localDate = date.toInstant().atOffset(ZoneOffset.UTC)
         localDate = localDate.withOffsetSameInstant(zoneOffset);
         note.date = DateTimeConverter.fromOffsetDateTime(localDate)
-        binding.singleNoteDate.setText(formatDate())
+        binding.apply {
+            singleNoteDate.text = formatDate()
+            if (localDate.isBefore(OffsetDateTime.now())) {
+                singleNoteDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                singleNoteDate.setBackgroundResource(R.drawable.date_shape_red)
+            } else {
+                singleNoteDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
+                singleNoteDate.setBackgroundResource(R.drawable.date_shape)
+            }
+        }
     }
 
     companion object {

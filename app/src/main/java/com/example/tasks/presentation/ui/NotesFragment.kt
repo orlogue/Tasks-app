@@ -41,13 +41,15 @@ class NotesFragment : Fragment() {
                 binding.list.adapter = NotesRecyclerViewAdapter(it
                     .filter { it.isFavorite }
                     .sortedBy { it.isCompleted },
-                    viewModel
+                    viewModel,
+                    requireContext()
                 )
             } else {
                 binding.list.adapter = NotesRecyclerViewAdapter(it
                     .filter { it.listId == listId }
                     .sortedBy { it.isCompleted },
-                    viewModel
+                    viewModel,
+                    requireContext()
                 )
             }
         }

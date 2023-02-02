@@ -1,14 +1,11 @@
 package com.example.tasks.presentation.ui
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginLeft
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -17,6 +14,7 @@ import com.example.tasks.R
 import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentSingleNoteBinding
+import com.example.tasks.presentation.DateTimePicker
 import com.example.tasks.presentation.MainViewModel
 import java.time.OffsetDateTime
 import java.time.ZoneOffset

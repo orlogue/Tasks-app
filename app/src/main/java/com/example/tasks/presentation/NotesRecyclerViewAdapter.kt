@@ -1,4 +1,4 @@
-package com.example.tasks.presentation.ui
+package com.example.tasks.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
-import android.widget.RadioButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -21,7 +19,7 @@ import com.example.tasks.R
 import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentNoteBinding
-import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.ui.SingleNoteFragment
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 

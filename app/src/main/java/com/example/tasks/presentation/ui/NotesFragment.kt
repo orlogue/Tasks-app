@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.tasks.data.Note
 import com.example.tasks.databinding.FragmentNoteListBinding
 import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.NotesRecyclerViewAdapter
 
 class NotesFragment : Fragment() {
     private lateinit var binding: FragmentNoteListBinding

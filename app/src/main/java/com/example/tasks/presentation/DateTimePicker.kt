@@ -1,12 +1,10 @@
-package com.example.tasks.presentation.ui
+package com.example.tasks.presentation
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import com.example.tasks.data.DateTimeConverter
 import com.example.tasks.data.Note
-import java.time.OffsetDateTime
-import java.time.ZoneOffset
 import java.util.*
 
 object DateTimePicker {

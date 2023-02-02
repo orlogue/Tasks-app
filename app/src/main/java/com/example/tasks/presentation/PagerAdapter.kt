@@ -1,10 +1,11 @@
-package com.example.tasks.presentation.ui
+package com.example.tasks.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tasks.data.NotesList
+import com.example.tasks.presentation.ui.NotesFragment
 
 class PagerAdapter(
     parentFragment: FragmentActivity,

@@ -7,15 +7,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tasks.R
 import com.example.tasks.databinding.FragmentMainBinding
 import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()

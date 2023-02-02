@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c8b3efde223f51028af72f1ec1f5b3b9",
+    "identityHash": "8318d70bb5982254350d9ace96d7013d",
     "entities": [
       {
         "tableName": "lists",
@@ -32,7 +32,7 @@
       },
       {
         "tableName": "notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `list_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `date` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `isCompleted` INTEGER NOT NULL, FOREIGN KEY(`list_id`) REFERENCES `lists`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `list_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `date` TEXT, `isFavorite` INTEGER NOT NULL, `isCompleted` INTEGER NOT NULL, FOREIGN KEY(`list_id`) REFERENCES `lists`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -62,7 +62,7 @@
             "fieldPath": "date",
             "columnName": "date",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "isFavorite",
@@ -112,7 +112,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c8b3efde223f51028af72f1ec1f5b3b9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8318d70bb5982254350d9ace96d7013d')"
     ]
   }
 }

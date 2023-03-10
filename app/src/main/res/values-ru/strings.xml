@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Задачи</string>
+    <string name="default_list">Мои задачи</string>
+    <string name="new_list">+ Cписок</string>
+    <string name="back">Назад</string>
+    <string name="create_new_list">Создать список</string>
+    <string name="done">Готово</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="choose_list">Добавить заметку</string>
+    <string name="options">Настройки</string>
+    <string name="enter_list_title">Введите имя списка</string>
+    <string name="new_task">Новая задача</string>
+    <string name="save">Сохранить</string>
+    <string name="add_description">Добавить описание</string>
+    <string name="add_datetime">Добавить дату/время</string>
+    <string name="make_favorite">Добавить в избранное</string>
+    <string name="rename_list">Переименовать</string>
+    <string name="delete_list">Удалить список</string>
+    <string name="delete_completed_tasks">Удалить все выполненные задачи</string>
+    <string name="mark_completed">Отметить выполненным</string>
+    <string name="mark_uncompleted">Отметить невыполненным</string>
+</resources>

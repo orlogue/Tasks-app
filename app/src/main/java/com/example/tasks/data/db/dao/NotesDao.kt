@@ -1,8 +1,8 @@
 package com.example.tasks.data.db.dao
 
 import androidx.room.*
-import com.example.tasks.data.db.models.NoteDbEntity
-import com.example.tasks.data.db.models.NotesListDbEntity
+import com.example.tasks.data.entities.NoteDbEntity
+import com.example.tasks.data.entities.NotesListDbEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

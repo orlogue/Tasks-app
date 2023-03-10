@@ -1,8 +1,8 @@
-package com.example.tasks.data.db.models
+package com.example.tasks.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tasks.data.NotesList
+import com.example.tasks.domain.entities.NotesList
 
 @Entity(
     tableName = "lists"

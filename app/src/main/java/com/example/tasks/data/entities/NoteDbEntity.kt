@@ -1,9 +1,8 @@
-package com.example.tasks.data.db.models
+package com.example.tasks.data.entities
 
 import androidx.room.*
-import com.example.tasks.data.DateTimeConverter
-import com.example.tasks.data.Note
-import org.jetbrains.annotations.NotNull
+import com.example.tasks.data.common.DateTimeConverter
+import com.example.tasks.domain.entities.Note
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 

@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tasks.R
 import com.example.tasks.databinding.FragmentMainBinding
-import com.example.tasks.presentation.MainViewModel
-import com.example.tasks.presentation.PagerAdapter
+import com.example.tasks.presentation.di.MainViewModel
+import com.example.tasks.presentation.common.PagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator

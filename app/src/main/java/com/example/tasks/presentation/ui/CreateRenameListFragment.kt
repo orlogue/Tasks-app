@@ -1,10 +1,7 @@
 package com.example.tasks.presentation.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
-import com.example.tasks.data.NotesList
+import com.example.tasks.domain.entities.NotesList
 import com.example.tasks.databinding.FragmentAddNewListBinding
-import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.di.MainViewModel
 
 class CreateRenameListFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()

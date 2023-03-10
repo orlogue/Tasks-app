@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
 import com.example.tasks.databinding.FragmentOptionsBinding
-import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.di.MainViewModel
 
 class OptionsFragment : DialogFragment() {
     private lateinit var binding: FragmentOptionsBinding

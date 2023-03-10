@@ -10,11 +10,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.R
-import com.example.tasks.data.DateTimeConverter
-import com.example.tasks.data.Note
+import com.example.tasks.data.common.DateTimeConverter
+import com.example.tasks.domain.entities.Note
 import com.example.tasks.databinding.FragmentNewNoteBinding
-import com.example.tasks.presentation.DateTimePicker
-import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.presentation.common.DateTimePicker
+import com.example.tasks.presentation.di.MainViewModel
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*

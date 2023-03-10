@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.tasks.databinding.FragmentNoteListBinding
-import com.example.tasks.presentation.MainViewModel
-import com.example.tasks.presentation.NotesRecyclerViewAdapter
+import com.example.tasks.presentation.di.MainViewModel
+import com.example.tasks.presentation.common.NotesRecyclerViewAdapter
 
 class NotesFragment : Fragment() {
     private lateinit var binding: FragmentNoteListBinding

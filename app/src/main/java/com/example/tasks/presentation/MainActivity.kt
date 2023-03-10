@@ -1,13 +1,12 @@
-package com.example.tasks.presentation.ui
+package com.example.tasks.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.databinding.ActivityMainBinding
-import com.example.tasks.domain.MainRepository
-import com.example.tasks.presentation.MainViewModel
+import com.example.tasks.domain.repositories.MainRepository
+import com.example.tasks.presentation.di.MainViewModel
+import com.example.tasks.presentation.ui.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
